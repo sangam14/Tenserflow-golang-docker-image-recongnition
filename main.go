@@ -11,6 +11,7 @@ import (
 	"os"
 	"sort"
 
+	"github.com/tensorflow/tensorflow/tensorflow/go"
 	"github.com/tensorflow/tensorflow/tensorflow/go/op"
 )
 
