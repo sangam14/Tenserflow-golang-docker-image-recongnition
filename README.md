@@ -211,3 +211,92 @@ docker run imgrecognition https://i.pinimg.com/736x/12/5c/e0/125ce0baff3271761ca
 ```
 
 Mouse?? no! But it's possible to train our models from Go in TensorFlow, and I will definitely do a video about it.
+
+
+
+
+demo -
+```
+[node1] (local) root@192.168.0.8 ~
+$ git clone https://github.com/sangam14/Tenserflow-golang-docker-image-recongnition
+Cloning into 'Tenserflow-golang-docker-image-recongnition'...
+remote: Enumerating objects: 15, done.
+remote: Counting objects: 100% (15/15), done.
+remote: Compressing objects: 100% (10/10), done.
+remote: Total 15 (delta 3), reused 12 (delta 3), pack-reused 0
+Unpacking objects: 100% (15/15), done.
+[node1] (local) root@192.168.0.8 ~
+$ ls
+Tenserflow-golang-docker-image-recongnition
+[node1] (local) root@192.168.0.8 ~
+$ cd Tenserflow-golang-docker-image-recongnition/
+[node1] (local) root@192.168.0.8 ~/Tenserflow-golang-docker-image-recongnition
+$ ls
+Dockerfile  README.md   main.go
+[node1] (local) root@192.168.0.8 ~/Tenserflow-golang-docker-image-recongnition
+$
+[node1] (local) root@192.168.0.8 ~/Tenserflow-golang-docker-image-recongnition
+$ ls
+Dockerfile  README.md   main.go
+[node1] (local) root@192.168.0.8 ~/Tenserflow-golang-docker-image-recongnition
+$ docker build -t imgrecognition .
+Sending build context to Docker daemon  86.53kB
+Step 1/6 : FROM ctava/tfcgo
+latest: Pulling from ctava/tfcgo
+d3938036b19c: Pull complete
+a9b30c108bda: Pull complete
+67de21feec18: Pull complete
+817da545be2b: Pull complete
+d967c497ce23: Pull complete
+d932e941614a: Pull complete
+380fc3256acd: Pull complete
+077f28a7142b: Pull complete
+70e01124e738: Pull complete
+702d0cb1a5ed: Pull complete
+596bb9d19a25: Pull complete
+8eb1391363e6: Pull complete
+c1f47490a2b6: Pull complete
+5a6ac0535d55: Pull complete
+03275ad0e166: Pull complete
+8d2352dbd786: Pull complete
+5b0e97b3cfbb: Pull complete
+120f589763ea: Pull complete
+5c06a8a52410: Pull complete
+f3a7732cb67e: Pull complete
+Digest: sha256:37f41a3a3f307d459a9c9c24340f2442132eb338b9a9f7285f21be7406311623
+Status: Downloaded newer image for ctava/tfcgo:latest
+ ---> 0dd6682b1573
+Step 2/6 : RUN mkdir -p /model &&   curl -o /model/inception5h.zip -s "http://download.tensorflow.org/models/inception5h.zip" &&   unzip /model/inception5h.zip -d /model
+ ---> Running in fee6bfa3acda
+Archive:  /model/inception5h.zip
+  inflating: /model/imagenet_comp_graph_label_strings.txt
+  inflating: /model/tensorflow_inception_graph.pb
+  inflating: /model/LICENSE
+Removing intermediate container fee6bfa3acda
+ ---> a6c30a8b1f0b
+Step 3/6 : WORKDIR /go/src/imgrecognition
+ ---> Running in a340d3cdbefc
+Removing intermediate container a340d3cdbefc
+ ---> 092ec689f5e2
+Step 4/6 : COPY . .
+ ---> 7404eb0d2015
+Step 5/6 : RUN go build
+ ---> Running in 9693fb540f7d
+Removing intermediate container 9693fb540f7d
+ ---> b42d3e7b5836
+Step 6/6 : ENTRYPOINT [ "/go/src/imgrecognition/imgrecognition" ]
+ ---> Running in 9dc911f7b6f1
+Removing intermediate container 9dc911f7b6f1
+ ---> 45b0bb08fb9a
+Successfully built 45b0bb08fb9a
+Successfully tagged imgrecognition:latest
+[node1] (local) root@192.168.0.8 ~/Tenserflow-golang-docker-image-recongnition
+$ docker run imgrecognition https://i.pinimg.com/736x/12/5c/e0/125ce0baff3271761ca61843eccf7985.jpg
+url: https://i.pinimg.com/736x/12/5c/e0/125ce0baff3271761ca61843eccf7985.jpg
+label: mouse, probability: 14.93%
+label: pick, probability: 10.40%
+label: wall clock, probability: 7.56%
+label: shield, probability: 5.54%
+label: hook, probability: 4.72%
+
+```
